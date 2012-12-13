@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>Pikaday</title>
     <meta name="author" content="David Bushell">
+    <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="css/pikaday.css">
     <style>
     html { margin: 0; padding: 0; }
@@ -38,8 +39,21 @@
 
     <label for="datepicker">Date:</label>
     <br>
-    <input type="text" id="datepicker">
-
+    <!-- Time Seconds Confirm Img -->
+    <input type="text" id="timeSecondsConfirm"><input type="image" src="pika-ico.png" id="timeSecondsConfirmImg">
+    <!-- Time Confirm Img -->
+    <input type="text" id="timeConfirm"><input type="image" src="pika-ico.png" id="timeConfirmImg">
+    <!-- Time Seconds Img -->
+    <input type="text" id="timeSeconds"><input type="image" src="pika-ico.png" id="timeSecondsImg">
+    <!-- Confirm Img -->
+    <input type="text" id="confirm"><input type="image" src="pika-ico.png" id="confirmImg">
+    <!-- Img -->
+    <input type="text" id="img"><input type="image" src="pika-ico.png" id="imgImg">
+    <!-- None of the above -->
+    <input type="text" id="noa">
+    <!-- Format preset demo -->
+    <input type="text" id="fpDemo">
+    
     <h2>What is this?</h2>
 
     <p>This is a development preview! Feel free to use it however you like but please report any bugs or feature requests to <a href="http://twitter.com/dbushell/">@dbushell</a> (on the GitHub issue tracker), thanks!</p>
@@ -50,13 +64,87 @@
     <script src="pikaday.js"></script>
     <script>
 
-    var picker = new Pikaday(
+    var timeSecondsConfirm = new Pikaday(
     {
-        field: document.getElementById('datepicker'),
-        firstDay: 1,
+        field: document.getElementById('timeSecondsConfirm'),
+        calbutton: document.getElementById('timeSecondsConfirmImg'),
+        firstDay: 0,
         minDate: new Date('2000-01-01'),
         maxDate: new Date('2020-12-31'),
-        yearRange: [2000,2020]
+        yearRange: [2000,2020],
+        formatPreset: 1,
+        useTime: true,
+        useSecs: true,
+        confirm: true
+    });
+    
+    var timeConfirm = new Pikaday(
+    {
+        field: document.getElementById('timeConfirm'),
+        calbutton: document.getElementById('timeConfirmImg'),
+        firstDay: 0,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        yearRange: [2000,2020],
+        formatPreset: 1,
+        useTime: true,
+        confirm: true
+    });
+    
+    var timeSeconds = new Pikaday(
+    {
+        field: document.getElementById('timeSeconds'),
+        calbutton: document.getElementById('timeSecondsImg'),
+        firstDay: 0,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        yearRange: [2000,2020],
+        formatPreset: 1,
+        useTime: true,
+        useSecs: true
+    });
+    
+    var confirm = new Pikaday(
+    {
+        field: document.getElementById('confirm'),
+        calbutton: document.getElementById('confirmImg'),
+        firstDay: 0,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        yearRange: [2000,2020],
+        formatPreset: 1,
+        confirm: true
+    });
+    
+    var img = new Pikaday(
+    {
+        field: document.getElementById('img'),
+        calbutton: document.getElementById('imgImg'),
+        firstDay: 0,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        yearRange: [2000,2020],
+        formatPreset: 1
+    });
+    
+    var noa = new Pikaday(
+    {
+        field: document.getElementById('noa'),
+        firstDay: 0,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        yearRange: [2000,2020],
+        formatPreset: 1
+    });
+    
+    var fpDemo = new Pikaday(
+    {
+        field: document.getElementById('fpDemo'),
+        firstDay: 0,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        yearRange: [2000,2020],
+        formatPreset: 0
     });
 
     </script>

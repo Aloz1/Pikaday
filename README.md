@@ -74,6 +74,7 @@ Pikaday has many useful options:
 * `field` bind the datepicker to a form field
 * `bound` automatically show/hide the datepicker on `field` focus (default `true` if `field` is set)
 * `format` the default output format for `.toString()` and `field` value (requires [Moment.js](http://momentjs.com/) for advanced formatting)
+* `formatPreset` there are 2 format presets by default, others are welcome to add more if wanted (not integrated into jQuery version)
 * `defaultDate` the initial date to view when first opened
 * `setDefaultDate` make the `defaultDate` the initial selected value
 * `firstDay` first day of the week (0: Sunday, 1: Monday, etc)
@@ -85,6 +86,9 @@ Pikaday has many useful options:
 * `onSelect` callback function for when a date is selected
 * `onOpen` callback function for when the picker becomes visible 
 * `onClose` callback function for when the picker is hidden
+* `useTime` if time is to be used or not (not integrated into jQuery version)
+* `useSecs` if seconds are to also be user (must have useTime set to true) (not integrated into jQuery version)
+* `confirm` an ok button for those that wish to confirm their selection (not integrated into jQuery version)
 
 ## jQuery Plugin
 
