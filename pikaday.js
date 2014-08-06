@@ -445,7 +445,7 @@
                     self.nextSecond();
                 }
                 else if (hasClass(target, 'pika-confirm-button')) {
-                    self.setDate(new Date(self._y, self._m, self._da, self._h, self._mi, self._s));
+                    self.setDate(new Date(Date.UTC(self._y, self._m, self._da, self._h, self._mi, self._s)));
                     if (opts.bound) {
                         sto(function() {
                             self.hide();
@@ -453,7 +453,7 @@
                     }
                 }
                 if (!opts.confirm && !hasClass(target, 'pika-select')) {
-                    self.setDate(new Date(self._y, self._m, self._da, self._h, self._mi, self._s));
+                    self.setDate(new Date(Date.UTC(self._y, self._m, self._da, self._h, self._mi, self._s)));
                 } 
             }
             if (!hasClass(target, 'pika-select')) {
@@ -494,12 +494,25 @@
         self._onInputChange = function(e)
         {
             if (!self._v) {
+                var dateReg = /(\d{4}-\d{2}-\d{2})/;
+                var timeReg = /(\d?\d:\d{2}(?:\:\d{2})?)/;
                 var date;
                 if (self._o.formatPreset == 1) {
-                    date = new Date(Date.parse(opts.field.value.substr(0, 10)));
-                    date.setHours(opts.field.value.substr(11, 2));
-                    date.setMinutes(opts.field.value.substr(14, 2));
-                    date.setSeconds(opts.field.value.substr(17, 2));
+                    var strDate = dateReg.exec(opts.field.value);
+                    var strTime = timeReg.exec(opts.field.value);
+
+                    if(strDate != null) {
+                        date = new Date(strDate[0]);
+                    }
+
+                    if(strTime != null) {
+                        strTime = strTime[0];
+                        date.setUTCHours(strTime.substr(0, 2), strTime.substr(3, 2));
+
+                        if(strTime.substr(6, 2) != "") {
+                            date.setSeconds(strTime.substr(6, 2));
+                        }
+                    }
                 }
                 else {
                     date = new Date(Date.parse(opts.field.value));
@@ -550,7 +563,7 @@
             }
             while ((pEl = pEl.parentNode));
             if (self._v && target !== (opts.calbutton ? opts.calbutton : opts.field) ) {
-                self._o.confirm ? '' : self.setDate(new Date(self._y, self._m, self._da, self._h, self._mi, self._s));;
+                self._o.confirm ? '' : self.setDate(new Date(Date.UTC(self._y, self._m, self._da, self._h, self._mi, self._s)));;
                 self.hide();
             }
         };
@@ -692,9 +705,12 @@
                         if (this._d.toISOString) {
                             string = this._d.toISOString().substr(0,10)
                 	        if (this._o.useTime) {
-                	            string += (' ' + this._d.toTimeString().substr(0,5));
+                                var hours = ('0' + this._d.getUTCHours()).slice(-2);
+                                var minutes = ('0' + this._d.getUTCMinutes()).slice(-2);
+                	            string += (' ' + hours + ':' + minutes);
                                 if (this._o.useSecs) {
-                                    string += this._d.toTimeString().substr(5,3);
+                                    var seconds = ('0' + this._d.getSeconds()).slice(-2);
+                                    string += (':' + seconds);
                                 }
                             }
                         } else {
@@ -785,8 +801,8 @@
             this._y = date.getFullYear();
             this._m = date.getMonth();
             this._da = date.getDate();
-            this._h = date.getHours();
-            this._mi = date.getMinutes();
+            this._h = date.getUTCHours();
+            this._mi = date.getUTCMinutes();
             this._s = date.getSeconds();
             this.draw();
         },
@@ -1039,7 +1055,7 @@
                                     this._s = parseInt(this._o.field.value.substr(17, 2), 10);
                                 }
                             }
-                            date = new Date(this._y, this._m, this._da, this._h, this._mi, this._s);
+                            date = new Date(Date.UTC(this._y, this._m, this._da, this._h, this._mi, this._s));
                         }
                         else {
                             date = new Date(Date.parse(this._o.field.value));
