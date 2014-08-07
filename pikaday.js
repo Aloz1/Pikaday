@@ -505,14 +505,19 @@
                         date = new Date(strDate[0]);
                     }
 
-                    if(strTime != null) {
+                    if(self._o.useTime && strTime != null) {
                         strTime = strTime[0];
-                        date.setHours(strTime.substr(0, 2), strTime.substr(3, 2));
-                        console.debug(date.getTimezoneOffset());
+                        date.setHours(parseInt(strTime.substr(0, 2)), parseInt(strTime.substr(3, 2)));
 
-                        if(strTime.substr(6, 2) != "") {
-                            date.setSeconds(strTime.substr(6, 2));
+                        if(self._o.useSecs && strTime.substr(6, 2) != "") {
+                            date.setSeconds(parseInt(strTime.substr(6, 2)));
                         }
+                        else {
+                            date.setSeconds(0);
+                        }
+                    }
+                    else {
+                        date.setHours( 0, 0, 0 );
                     }
                 }
                 else {
